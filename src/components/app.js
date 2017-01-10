@@ -8,13 +8,14 @@ require('../../styles/style.scss');
 
 export default class App extends Component {
   render() {
+    const initialCenter = { lng: -90.1056957, lat: 29.9717272 };
     return (
       <div>
         <NavBar />
         <div className="container-fluid">
-          <div className="row-fluid">
-            <div className="col-sm-8">
-              <Map />
+          <div className="row">
+            <div className="col-sm-8 map-container">
+              <Map initialCenter={initialCenter} />
             </div>
             <div className="col-sm-4">
               <RestaurantList />
