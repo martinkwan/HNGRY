@@ -1,7 +1,17 @@
 import { combineReducers } from 'redux';
+import { UPDATE_MAP } from '../actions/index';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  searchLocation: updateMap,
 });
 
 export default rootReducer;
+
+function updateMap(state = {}, action) {
+  switch (action.type) {
+    case UPDATE_MAP:
+      return action.payload || state;
+    default:
+      return state;
+  }
+}
