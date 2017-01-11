@@ -10,7 +10,6 @@ export default rootReducer;
 function updateMap(state = {}, action) {
   switch (action.type) {
     case UPDATE_MAP:
-    console.log('payload',action.payload);
       return action.payload || state;
     default:
       return state;
