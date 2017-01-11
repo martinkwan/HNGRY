@@ -3,8 +3,9 @@
  * TODO: Implement Geolocation
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class Map extends Component {
+class Map extends Component {
 
   constructor(props) {
     super(props);
@@ -16,18 +17,28 @@ export default class Map extends Component {
     // ( google.maps needs to manipulate DOM )
     this.map = this.createMap();
     google.maps.event.addListener(this.map, 'zoom_changed', () => this.zoomChangeHandler());
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const currLocation = {
-          lng: position.coords.longitude,
-          lat: position.coords.latitude,
-        };
-        // change to redux state later
-        this.map.setCenter(currLocation);
-      });
+  }
+    //
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     const currLocation = {
+    //       lng: position.coords.longitude,
+    //       lat: position.coords.latitude,
+    //     };
+    //     // change to redux state later
+    //     this.map.setCenter(currLocation);
+    //   });
+    // } else {
+    //   console.log('This Browser doesn\'t support HTML5 geolocation');
+    // }
+  // }
+  componentDidUpdate() {
+    const place = this.props.searchLocation;
+    if (place.geometry) {
+      this.map.panTo(place.geometry.location);
+      // search();
     } else {
-      console.log('This Browser doesn\'t support HTML5 geolocation');
+      document.getElementById('autocomplete').placeholder = 'Enter a city';
     }
   }
 
@@ -35,6 +46,9 @@ export default class Map extends Component {
     const mapOptions = {
       zoom: this.state.zoom,
       center: this.mapCenter(),
+      mapTypeControl: false,
+      zoomControl: false,
+      streetViewControl: false
     };
     return new google.maps.Map(document.getElementById('map'), mapOptions);
   }
@@ -59,3 +73,9 @@ export default class Map extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { searchLocation: state.searchLocation };
+}
+
+export default connect(mapStateToProps)(Map);
