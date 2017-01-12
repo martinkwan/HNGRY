@@ -7,7 +7,7 @@ export default class NavBar extends Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#">EATR</a>
+            <a className="navbar-brand" href="#">HNGRY</a>
             <form className="navbar-form navbar-left">
               <SearchBox />
             </form>

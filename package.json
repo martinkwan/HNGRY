@@ -1,5 +1,5 @@
 {
-  "name": "restaurant-mapper",
+  "name": "HNGRY",
   "version": "1.0.0",
   "description": "Web application to plot nearby restaurants on a map.",
   "main": "webpack.config.js",

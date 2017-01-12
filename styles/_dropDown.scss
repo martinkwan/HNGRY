@@ -1,14 +1,13 @@
 .dropdown-container {
   float:right;
-  width:120px;
+  width:$drop-down-width;
   .caret{
     margin-left:40px;
   }
   .dropdown-list{
     &-show{
       display:block;
-      width:120px;
-      transform: scale(1,1);
+      width:$drop-down-width;
       position: absolute;
       z-index: $z-drop-down;
       button{
@@ -24,7 +23,7 @@
     width: 100%;
   }
   .dropdown-toggle{
-    width:120px;
+    width:$drop-down-width;
     border:solid 1px #DDD;
   }
 
