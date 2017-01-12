@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './navBar';
-import Map from './map';
+import Map from '../containers/map';
 import RestaurantList from './restaurantList';
 
 require('../../styles/style.scss');

@@ -4,7 +4,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import InfoWindow from './infoWindow';
+import InfoWindow from '../components/infoWindow';
 
 class Map extends Component {
 

@@ -1,8 +1,13 @@
 import React from 'react';
+import DropDown from './dropDown';
 
 const restaurantList = () =>
   <div className="restaurant-list">
-    <div>Sort restaurants by</div>
+    <div className="list-header">
+      <h4 className="list-text">Sort Restaurants By:</h4>
+      <DropDown />
+    </div>
+    {/* <List /> */}
   </div>;
 
 export default restaurantList;

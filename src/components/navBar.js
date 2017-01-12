@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchBox from './searchBox';
+import SearchBox from '../containers/searchBox';
 
 export default class NavBar extends Component {
   render() {

@@ -1,0 +1,18 @@
+.dropdown-container {
+  float:right;
+  width:200px;
+  // &-show>dropdown-list{
+  //   transform: scale(1,1);
+  // }
+
+  .dropdown-list{
+    &-show{
+      display:block;
+    }
+    display:none;
+    //
+  }
+  .default-filter{
+    // float:right;
+  }
+}

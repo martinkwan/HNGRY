@@ -1,4 +1,13 @@
 .restaurant-list{
   height:100%;
-  background-color: $primary-color;
+  background-color: $secondary-color;
+}
+
+.list-text{
+  float:left;
+  margin:0;
+}
+.list-header{
+  background-color: $secondary-color;
+  height:40px;
 }
