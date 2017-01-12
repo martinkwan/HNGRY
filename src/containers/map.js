@@ -59,12 +59,9 @@ class Map extends Component {
     this.places.nearbySearch(search, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.clearMarkers(this.state.markers);
-        // Create a marker for each hotel found, and
-        // assign a letter of the alphabetic to each marker icon.
+        // Create a marker for each restaurant found.
         for (let i = 0; i < results.length; i++) {
-          // TODO: Change to numbers instead of letters
-          const markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
-          const markerIcon = `https://developers.google.com/maps/documentation/javascript/images/marker_green${(markerLetter)}.png`;
+          const markerIcon = `http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=${(i + 1)}|26d6d6|ffffff`;
           // Use marker animation to drop the icons incrementally on the map.
           this.state.markers[i] = new google.maps.Marker({
             position: results[i].geometry.location,
