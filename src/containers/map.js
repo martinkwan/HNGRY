@@ -27,21 +27,8 @@ class Map extends Component {
       content: document.getElementById('info-content'),
     });
     google.maps.event.addListener(this.map, 'zoom_changed', () => this.zoomChangeHandler());
+    google.maps.event.addListener(this.map, 'dragend', () => this.search());
   }
-    // Fix geolocation later
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     const currLocation = {
-    //       lng: position.coords.longitude,
-    //       lat: position.coords.latitude,
-    //     };
-    //     // change to redux state later
-    //     this.map.setCenter(currLocation);
-    //   });
-    // } else {
-    //   console.log('This Browser doesn\'t support HTML5 geolocation');
-    // }
-  // }
 
   /**
    * If redux state is updated via search bar, pan the map to the new location

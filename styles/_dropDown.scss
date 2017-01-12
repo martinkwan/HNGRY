@@ -1,18 +1,16 @@
 .dropdown-container {
   float:right;
   width:200px;
-  // &-show>dropdown-list{
-  //   transform: scale(1,1);
-  // }
 
   .dropdown-list{
     &-show{
       display:block;
+      transform: scale(1,1);
+      position: absolute;
+      z-index: $z-drop-down;
     }
     display:none;
-    //
   }
   .default-filter{
-    // float:right;
   }
 }

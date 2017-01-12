@@ -20,7 +20,7 @@ const updatePlaces = (state = [], action) => {
       } else if (action.payload === 'Price') {
         state.sort((a, b) => a.price_level - b.price_level);
       }
-      console.log(state,'state')
+      console.log(state, 'state for updatePlaces')
       return Object.assign([], state);
     default:
       return state;
