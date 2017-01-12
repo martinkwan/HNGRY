@@ -116,6 +116,9 @@ class Map extends Component {
     document.getElementById('info-window-name').textContent = place.name;
     document.getElementById('info-window-address').textContent = place.vicinity;
     document.getElementById('info-window-price').textContent = place.price_level;
+    for (let i = 1; i < place.price_level + 1; i++) {
+      document.getElementById(`price-${i}`).classList.add('price-fill-in');
+    }
   }
 
   /**

@@ -12,15 +12,13 @@ export default class Rating extends Component {
   }
   render() {
     return (
-      <div className="">
-        <div className="">
-          <i className={this.calculateStars(1)} />
-          <i className={this.calculateStars(2)} />
-          <i className={this.calculateStars(3)} />
-          <i className={this.calculateStars(4)} />
-          <i className={this.calculateStars(5)} />
-        </div>
-      </div>
+      <td className="">
+        <i className={this.calculateStars(1)} />
+        <i className={this.calculateStars(2)} />
+        <i className={this.calculateStars(3)} />
+        <i className={this.calculateStars(4)} />
+        <i className={this.calculateStars(5)} />
+      </td>
     );
   }
 }
