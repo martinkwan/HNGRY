@@ -2,8 +2,8 @@ import React from 'react';
 import DropDown from './dropDown';
 import List from '../containers/list';
 
-const restaurantList = () =>
-  <div className="restaurant-list">
+const ListContainer = () =>
+  <div className="list">
     <div className="list-header">
       <h5 className="list-text">Sort Restaurants By:</h5>
       <DropDown />
@@ -11,4 +11,4 @@ const restaurantList = () =>
     <List />
   </div>;
 
-export default restaurantList;
+export default ListContainer;

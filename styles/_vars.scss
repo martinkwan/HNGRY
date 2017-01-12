@@ -2,3 +2,8 @@ $primary-color: #26d6d6;
 $secondary-color: white;
 
 $z-drop-down: 200;
+
+$list-header-height:5vh;
+$max-map-height: 90vh;
+
+$max-list-height: ($max-map-height - $list-header-height);

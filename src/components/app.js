@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './navBar';
 import Map from '../containers/map';
-import RestaurantList from './restaurantList';
+import ListContainer from './listContainer';
 
 require('../../styles/style.scss');
 
@@ -18,7 +18,7 @@ export default class App extends Component {
               <Map initialCenter={initialCenter} />
             </div>
             <div className="col-sm-4">
-              <RestaurantList />
+              <ListContainer />
             </div>
           </div>
         </div>

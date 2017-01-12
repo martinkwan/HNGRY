@@ -21,7 +21,7 @@ export default class ListItem extends Component {
               <td>{place.vicinity}</td>
             </tr>
             <tr>
-              <Price rating={place.price_level} />
+              <Price rating={place.price_level} open={place.opening_hours ? place.opening_hours.open_now : 'maybe'} />
             </tr>
             <tr>
               <Rating percentage={place.rating} />

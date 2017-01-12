@@ -8,7 +8,7 @@ class DropDown extends Component {
     super(props);
     this.state = {
       listVisible: false,
-      selected: 'Reviews',
+      selected: 'Filter By',
     };
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
@@ -21,30 +21,27 @@ class DropDown extends Component {
 
   show() {
     this.setState({ listVisible: true });
-    document.addEventListener("click", this.hide);
+    document.addEventListener('click', this.hide);
   }
 
   hide() {
     this.setState({ listVisible: false });
-    document.removeEventListener("click", this.hide);
+    document.removeEventListener('click', this.hide);
   }
 
   render() {
     return (
       <span className="dropdown-container">
         <button
+          className="btn-default dropdown-toggle"
           onClick={this.show}
         >
-          <span className="default-filter">{this.state.selected}</span>
+          {this.state.selected}
           <span className="caret" />
         </button>
         <div className={`dropdown-list${this.state.listVisible ? '-show' : ''}`}>
-          <ul>
-            <div><button onClick={() => this.select('Action')}>Action</button></div>
-            <div><button onClick={() => this.select('Ratings')}>Ratings</button></div>
-            <div><button onClick={() => this.select('Distance')}>Distance</button></div>
-            <div><button onClick={() => this.select('Price')}>Price</button></div>
-          </ul>
+          <div><button onClick={() => this.select('Ratings')}>Ratings</button></div>
+          <div><button onClick={() => this.select('Price')}>Price</button></div>
         </div>
       </span>
     );

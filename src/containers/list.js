@@ -7,7 +7,7 @@ class List extends Component {
 
   render() {
     return (
-      <div>
+      <div className="list-scroll">
         {this.props.places.map((place, index) => {
           return (
             <div key={place.id} className="list-item-container">

@@ -13,7 +13,10 @@ class Map extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { zoom: 14 };
+    this.state = {
+      zoom: 14,
+      markers: [],
+    };
   }
 
   /**
@@ -27,7 +30,8 @@ class Map extends Component {
       content: document.getElementById('info-content'),
     });
     google.maps.event.addListener(this.map, 'zoom_changed', () => this.zoomChangeHandler());
-    google.maps.event.addListener(this.map, 'dragend', () => this.search());
+    // On drag event, update redux state with new coordinates
+    google.maps.event.addListener(this.map, 'dragend', () => this.props.updateMap({ geometry: { location: this.map.getCenter() } }));
   }
 
   /**
@@ -48,15 +52,13 @@ class Map extends Component {
    * Searches map for all restaurants, then drops markers on map where restaurants are
    */
   search() {
-    let markers = [];
     const search = {
       bounds: this.map.getBounds(),
       types: ['restaurant'],
     };
     this.places.nearbySearch(search, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        // clearResults();
-        markers = this.clearMarkers(markers);
+        this.clearMarkers(this.state.markers);
         // Create a marker for each hotel found, and
         // assign a letter of the alphabetic to each marker icon.
         for (let i = 0; i < results.length; i++) {
@@ -64,16 +66,15 @@ class Map extends Component {
           const markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
           const markerIcon = `https://developers.google.com/maps/documentation/javascript/images/marker_green${(markerLetter)}.png`;
           // Use marker animation to drop the icons incrementally on the map.
-          markers[i] = new google.maps.Marker({
+          this.state.markers[i] = new google.maps.Marker({
             position: results[i].geometry.location,
             animation: google.maps.Animation.DROP,
             icon: markerIcon,
           });
           // Show the details of that restaurant in an info window if marker is clicked.
-          markers[i].placeResult = results[i];
-          google.maps.event.addListener(markers[i], 'mouseover', this.showInfoWindow.bind(this, markers[i]));
-          setTimeout(this.dropMarker(i, markers), i * 100);
-          // addResult(results[i], i);
+          this.state.markers[i].placeResult = results[i];
+          google.maps.event.addListener(this.state.markers[i], 'mouseover', this.showInfoWindow.bind(this, this.state.markers[i]));
+          setTimeout(this.dropMarker(i, this.state.markers), i * 100);
         }
         this.props.updatePlaces(results);
       }
@@ -124,16 +125,15 @@ class Map extends Component {
   }
 
   /**
-   * TODO:Need to fix, not clearing markers as of now
+   * Clear previous markers on map
+   * @param  {object} marker   [marker objects]
    */
   clearMarkers(markers) {
-    for (let i = 0; i < markers.length; i++) {
-      console.log(markers[i])
-      if (markers[i]) {
-        markers[i].setMap(null);
+    for (const marker of markers) {
+      if (marker) {
+        marker.setMap(null);
       }
     }
-    return [];
   }
 
   /**
