@@ -7,7 +7,7 @@ require('../../styles/style.scss');
 
 export default class App extends Component {
   render() {
-    const initialCenter = { lng: -90.1056957, lat: 29.9717272 };
+    const initialCenter = { lng: -122.395902, lat: 37.781615 };
     return (
       <div>
         <NavBar />

@@ -4,6 +4,9 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { updateMap, updatePlaces } from '../actions/index';
+
 import InfoWindow from '../components/infoWindow';
 
 class Map extends Component {
@@ -85,6 +88,7 @@ class Map extends Component {
           setTimeout(this.dropMarker(i, markers), i * 100);
           // addResult(results[i], i);
         }
+        this.props.updatePlaces(results);
       }
     });
   }
@@ -187,4 +191,8 @@ function mapStateToProps(state) {
   return { searchLocation: state.searchLocation };
 }
 
-export default connect(mapStateToProps)(Map);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ updateMap, updatePlaces }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

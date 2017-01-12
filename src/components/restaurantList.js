@@ -1,13 +1,14 @@
 import React from 'react';
 import DropDown from './dropDown';
+import List from '../containers/list';
 
 const restaurantList = () =>
   <div className="restaurant-list">
     <div className="list-header">
-      <h4 className="list-text">Sort Restaurants By:</h4>
+      <h5 className="list-text">Sort Restaurants By:</h5>
       <DropDown />
     </div>
-    {/* <List /> */}
+    <List />
   </div>;
 
 export default restaurantList;
