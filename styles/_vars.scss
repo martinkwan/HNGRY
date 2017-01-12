@@ -4,7 +4,15 @@ $secondary-color: white;
 $z-drop-down: 200;
 $drop-down-width: 120px;
 
+// Media queries
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
 $list-header-height:5vh;
 $max-map-height: 90vh;
+
+$mobile-max-map-height: 40vh;
+$mobile-max-list-height: (82vh - $mobile-max-map-height);
+
 
 $max-list-height: ($max-map-height - $list-header-height);

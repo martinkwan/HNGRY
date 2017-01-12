@@ -4,9 +4,16 @@ import { connect } from 'react-redux';
 import ListItem from '../components/listItem';
 
 class List extends Component {
+  /**
+   * Scroll up when list is applied a new filter
+   */
+  componentDidUpdate() {
+    document.getElementById('list-scroll').scrollTop = 0;
+  }
+
   render() {
     return (
-      <div className="list-scroll">
+      <div id="list-scroll" className="list-scroll">
         {this.props.places.map((place, index) =>
           (
             <div key={place.id} className="list-item-container">
