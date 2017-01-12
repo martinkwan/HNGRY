@@ -2,3 +2,4 @@ npm-debug.log
 node_modules
 API_KEY.js
 dist
+vendor

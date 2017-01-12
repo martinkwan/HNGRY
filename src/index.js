@@ -1,15 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { render } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 
-import App from './components/app';
-import reducers from './reducers';
+import configureStore from './store/configureStore';
+import Root from './components/root';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const store = configureStore();
 
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
-  , document.querySelector('#start'));
+render(
+  <AppContainer>
+    <Root store={store} />
+  </AppContainer>,
+  document.querySelector('#start'));
+
+if (module.hot) {
+  module.hot.accept('./components/root', () => {
+    const NewRoot = require('./components/root').default;
+
+    render(
+      <AppContainer>
+        <NewRoot store={store} />
+      </AppContainer>,
+      document.querySelector('#start'),
+    );
+  });
+}

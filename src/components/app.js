@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import NavBar from './navBar';
-import Map from './map';
-import RestaurantList from './restaurantList';
+import Map from '../containers/map';
+import ListContainer from './listContainer';
 
 require('../../styles/style.scss');
 
-
 export default class App extends Component {
   render() {
-    const initialCenter = { lng: -90.1056957, lat: 29.9717272 };
+    // San francisco is default
+    const initialCenter = { lng: -122.395902, lat: 37.781615 };
     return (
       <div>
         <NavBar />
@@ -18,7 +18,7 @@ export default class App extends Component {
               <Map initialCenter={initialCenter} />
             </div>
             <div className="col-sm-4">
-              <RestaurantList />
+              <ListContainer />
             </div>
           </div>
         </div>

@@ -1,0 +1,31 @@
+.dropdown-container {
+  float:right;
+  width:120px;
+  .caret{
+    margin-left:40px;
+  }
+  .dropdown-list{
+    &-show{
+      display:block;
+      width:120px;
+      transform: scale(1,1);
+      position: absolute;
+      z-index: $z-drop-down;
+      button{
+        border:solid 1px #DDD;
+        background-color:white;
+        width:100%;
+        &:hover{
+          background:#F0F0F0;
+        }
+      }
+    }
+    display:none;
+    width: 100%;
+  }
+  .dropdown-toggle{
+    width:120px;
+    border:solid 1px #DDD;
+  }
+
+}

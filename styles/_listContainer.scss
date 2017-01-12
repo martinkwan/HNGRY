@@ -1,0 +1,32 @@
+.list{
+  // height:$max-page-height;
+  background-color: $secondary-color;
+  overflow-y: scroll;
+  &-text{
+    float:left;
+    margin:0;
+  }
+  &-header{
+    background-color: $secondary-color;
+    height:$list-header-height;
+  }
+  &-item-image{
+    float:right;
+  }
+  &-table{
+    float:left;
+  }
+  &-item-number{
+    float:left;
+    width: 40px;
+    color: grey;
+  }
+  &-item-container{
+    border-bottom: 1px solid grey;
+    padding:20px 0;
+  }
+  &-scroll{
+    overflow-y: scroll;
+    height:$max-list-height;
+  }
+}

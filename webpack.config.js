@@ -1,9 +1,13 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
   entry: [
-    './src/index.js',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/dev-server',
+    'react-hot-loader/patch',
+    path.join(__dirname, 'src/index.js'),
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
@@ -16,6 +20,7 @@ module.exports = {
         test: /.*\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel',
+        include: path.join(__dirname, 'src'),
       },
       {
         test: /\.scss$/,
@@ -26,8 +31,13 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
   devServer: {
     historyApiFallback: true,
     contentBase: './',
+    hot: true,
+    port: 3000,
   },
 };
