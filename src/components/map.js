@@ -50,7 +50,7 @@ class Map extends Component {
       this.map.panTo(place.geometry.location);
       this.search();
     } else {
-      document.getElementById('autocomplete').placeholder = 'Enter a city';
+      document.getElementById('autocomplete').placeholder = 'Enter a location';
     }
   }
 

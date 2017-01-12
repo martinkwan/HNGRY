@@ -36,7 +36,6 @@ class SearchBox extends Component {
           id="autocomplete"
           type="text"
           className="form-control"
-          placeholder="Search"
           onKeyDown={this.onFormSubmit}
         />
       </div>
