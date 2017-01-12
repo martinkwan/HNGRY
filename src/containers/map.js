@@ -1,8 +1,4 @@
-/**
- * TODO: Change state when map is moved.
- * TODO: Implement Geolocation
- */
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateMap, updatePlaces } from '../actions/index';
@@ -28,9 +24,11 @@ class Map extends Component {
     this.infoWindow = new google.maps.InfoWindow({
       content: document.getElementById('info-content'),
     });
+    google.maps.event.addListener(this.map, 'zoom_changed', () => this.search());
     // On drag event, update redux state with new coordinates
     google.maps.event.addListener(this.map, 'dragend', () => this.props.updateMap({ geometry: { location: this.map.getCenter() } }));
   }
+
 
   /**
    * If redux state is updated via search bar, pan the map to the new location
@@ -39,8 +37,11 @@ class Map extends Component {
   componentDidUpdate() {
     const place = this.props.searchLocation;
     if (place.geometry) {
+      // If component update is via autocomplete search
+      if (place.address_components) {
+        this.map.setZoom(14);
+      }
       this.map.panTo(place.geometry.location);
-      this.map.setZoom(14);
       this.search();
     } else {
       document.getElementById('autocomplete').placeholder = 'Enter a location';
@@ -165,6 +166,20 @@ class Map extends Component {
     );
   }
 }
+
+Map.propTypes = {
+  updateMap: PropTypes.func,
+  updatePlaces: PropTypes.func,
+  initialCenter: PropTypes.object,
+  searchLocation: PropTypes.object,
+};
+
+/**
+ * Set intial starting map to be centered at San Francisco
+ */
+Map.defaultProps = {
+  initialCenter: { lng: -122.395902, lat: 37.781615 },
+};
 
 function mapStateToProps(state) {
   return { searchLocation: state.searchLocation };

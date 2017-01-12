@@ -7,15 +7,15 @@ require('../../styles/style.scss');
 
 export default class App extends Component {
   render() {
-    // San francisco is default
-    const initialCenter = { lng: -122.395902, lat: 37.781615 };
+    // San francisco is default center
+    // const initialCenter = { lng: -122.395902, lat: 37.781615 };
     return (
       <div>
         <NavBar />
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-8 map-container">
-              <Map initialCenter={initialCenter} />
+              <Map />
             </div>
             <div className="col-sm-4">
               <ListContainer />
