@@ -12,7 +12,8 @@ class List extends Component {
           return (
             <ListItem
               place={place}
-              key={index}
+              key={place.id}
+              number={index}
             />
           )
         })}

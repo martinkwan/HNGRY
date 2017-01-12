@@ -16,9 +16,9 @@ export function updateFilter(filter) {
   };
 }
 
-export function updatePlaces(filter) {
+export function updatePlaces(places) {
   return {
     type: UPDATE_PLACES,
-    payload: filter,
+    payload: places,
   };
 }
