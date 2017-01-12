@@ -14,7 +14,6 @@ const InfoWindow = () =>
         <td id="info-window-address" />
       </tr>
       <tr className="info-window-table-row">
-        <td id="info-window-price" />
         <Price />
       </tr>
     </tbody>

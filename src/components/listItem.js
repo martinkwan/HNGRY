@@ -10,24 +10,26 @@ export default class ListItem extends Component {
       maxHeight: 100
     }
     return (
-      <table>
-        <tbody>
-          <tr>
-            <td>{number + 1}</td>
-          </tr>
-          <tr>
-            <td>{place.name}</td>
-          </tr>
-          <tr>
-            <Rating percentage={place.rating} />
-          </tr>
-          <tr>
-            <td>{place.vicinity}</td>
-            <Price rating={place.price_level} />
-          </tr>
-          <img src={`${place.photos ? place.photos[0].getUrl(dimensions) : 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71'}.png`} />
-        </tbody>
-      </table>
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td>{number + 1}</td>
+              <td>{place.name}</td>
+            </tr>
+            <tr>
+              <td>{place.vicinity}</td>
+            </tr>
+            <tr>
+              <Price rating={place.price_level} />
+            </tr>
+            <tr>
+              <Rating percentage={place.rating} />
+            </tr>
+          </tbody>
+        </table>
+        <img className="list-item-image" src={`${place.photos ? place.photos[0].getUrl(dimensions) : 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71'}.png`} />
+      </div>
     );
   }
 }

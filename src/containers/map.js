@@ -84,7 +84,7 @@ class Map extends Component {
           });
           // Show the details of that restaurant in an info window if marker is clicked.
           markers[i].placeResult = results[i];
-          google.maps.event.addListener(markers[i], 'click', this.showInfoWindow.bind(this, markers[i]));
+          google.maps.event.addListener(markers[i], 'mouseover', this.showInfoWindow.bind(this, markers[i]));
           setTimeout(this.dropMarker(i, markers), i * 100);
           // addResult(results[i], i);
         }
@@ -115,7 +115,10 @@ class Map extends Component {
   buildInfoWindow(place) {
     document.getElementById('info-window-name').textContent = place.name;
     document.getElementById('info-window-address').textContent = place.vicinity;
-    document.getElementById('info-window-price').textContent = place.price_level;
+    // Reset price-fill-in class on price rating before setting again
+    for (let i = 1; i < 5; i++) {
+      document.getElementById(`price-${i}`).classList.remove('price-fill-in');
+    }
     for (let i = 1; i < place.price_level + 1; i++) {
       document.getElementById(`price-${i}`).classList.add('price-fill-in');
     }
