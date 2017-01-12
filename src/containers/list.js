@@ -10,11 +10,12 @@ class List extends Component {
       <div>
         {this.props.places.map((place, index) => {
           return (
-            <ListItem
-              place={place}
-              key={place.id}
-              number={index}
-            />
+            <div key={place.id}>
+              <h4 className="list-item-number">{index}</h4>
+              <ListItem
+                place={place}
+              />
+            </div>
           )
         })}
       </div>

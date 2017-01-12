@@ -4,17 +4,17 @@ import Price from './price';
 
 export default class ListItem extends Component {
   render() {
-    const { place, number } = this.props;
+    const { place } = this.props;
     const dimensions = {
       maxWidth: 100,
       maxHeight: 100
     }
     return (
-      <div>
-        <table>
+      <div className="clearfix">
+        <img className="list-item-image" src={`${place.photos ? place.photos[0].getUrl(dimensions) : 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71'}.png`} />
+        <table className="list-table">
           <tbody>
             <tr>
-              <td>{number + 1}</td>
               <td>{place.name}</td>
             </tr>
             <tr>
@@ -28,7 +28,6 @@ export default class ListItem extends Component {
             </tr>
           </tbody>
         </table>
-        <img className="list-item-image" src={`${place.photos ? place.photos[0].getUrl(dimensions) : 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71'}.png`} />
       </div>
     );
   }
