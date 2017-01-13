@@ -1,7 +1,20 @@
+/**
+ |==========================================================================================
+ | This is a container that searches locations for restaurants.
+ | It needs to dispatch from the redux state.
+ | Does not need to access the redux state.
+ |
+ | A. When city or address is selected from autocomplete:
+ |  1. The updateLocation action is dispatched to the reducers with the location object.
+ |  2. Redux's location state is updated.
+ |  3. Invokes map container to update with new coordinates.
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateMap } from '../actions/index';
+import { updateLocation } from '../actions/index';
 
 class SearchBox extends Component {
   constructor(props) {
@@ -33,7 +46,7 @@ class SearchBox extends Component {
     const autocomplete = new google.maps.places.Autocomplete(
         /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
         { types: ['geocode'] });
-    autocomplete.addListener('place_changed', () => this.props.updateMap(autocomplete.getPlace()));
+    autocomplete.addListener('place_changed', () => this.props.updateLocation(autocomplete.getPlace()));
   }
 
   /**
@@ -51,7 +64,7 @@ class SearchBox extends Component {
             ),
           },
         };
-        this.props.updateMap(locationData);
+        this.props.updateLocation(locationData);
       });
     } else {
       console.log('This Browser doesnt support HTML5 geolocation');
@@ -80,11 +93,11 @@ class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
-  updateMap: PropTypes.func,
+  updateLocation: PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateMap }, dispatch);
+  return bindActionCreators({ updateLocation }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SearchBox);

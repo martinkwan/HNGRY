@@ -1,6 +1,16 @@
+/**
+ |==========================================================================================
+ | This is a container that displays the list of restaurants.
+ | It needs access to places from the redux state.
+ | Does not need to dispatch to the redux state.
+ |
+ | A. When redux's places state is updated via the map container:
+ |  1. This list rerenders with the new places.
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
 import ListItem from '../components/listItem';
 
 class List extends Component {
@@ -33,11 +43,9 @@ List.propTypes = {
   places: PropTypes.array.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps({ places }) {
   return {
-    searchLocation: state.searchLocation,
-    filter: state.filter,
-    places: state.places,
+    places,
   };
 }
 

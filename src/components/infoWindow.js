@@ -1,5 +1,12 @@
+/**
+ |==========================================================================================
+ | The component that renders the InfoWindow on the map
+ |------------------------------------------------------------------------------------------
+ */
+
 import React from 'react';
 import Price from './price';
+import OpenClose from './openClose';
 
 const InfoWindow = () =>
   <table className="info-window">
@@ -11,7 +18,10 @@ const InfoWindow = () =>
         <td id="info-window-address" />
       </tr>
       <tr className="info-window-table-row">
-        <Price rating={-1} />
+        <td>
+          <Price rating={-1} />
+          &nbsp; <OpenClose />
+        </td>
       </tr>
     </tbody>
   </table>;

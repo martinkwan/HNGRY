@@ -1,10 +1,10 @@
-export const UPDATE_MAP = 'UPDATE_MAP';
+export const UPDATE_LOCATION = 'UPDATE_LOCATION';
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const UPDATE_PLACES = 'UPDATE_PLACES';
 
-export function updateMap(location) {
+export function updateLocation(location) {
   return {
-    type: UPDATE_MAP,
+    type: UPDATE_LOCATION,
     payload: location,
   };
 }

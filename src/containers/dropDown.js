@@ -1,3 +1,17 @@
+/**
+ |==========================================================================================
+ | This is a container that displays the list of filters.
+ | It needs to dispatch to the redux state.
+ | Does not need to access to the redux state.
+ |
+ | A. When a filter is selected:
+ |  1. The updateFilter action is dispatched to the reducers with the filter category.
+ |  2. Redux's filter state is updated.
+ |  3. This map rerenders with the markers with the numbers in the sorted order.
+ |  4. Eventually list container is updated via map container changing redux's place state
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,10 +27,14 @@ class DropDown extends Component {
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
   }
-
+  /**
+   * Updates redux filterstate with selected item if new selection
+   */
   select(item) {
-    this.state.selected = item;
-    this.props.updateFilter(this.state.selected);
+    if (this.state.selected !== item) {
+      this.state.selected = item;
+      this.props.updateFilter(this.state.selected);
+    }
   }
 
   show() {

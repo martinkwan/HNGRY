@@ -1,6 +1,13 @@
+/**
+ |==========================================================================================
+ | The component that renders an individual item on the list of restaurants
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 import Rating from './rating';
 import Price from './price';
+import OpenClose from './openClose';
 
 export default class ListItem extends Component {
   render() {
@@ -21,10 +28,15 @@ export default class ListItem extends Component {
               <td>{place.vicinity}</td>
             </tr>
             <tr>
-              <Price rating={place.price_level} open={place.opening_hours ? place.opening_hours.open_now : 'maybe'} />
+              <td>
+                <Price rating={place.price_level} />
+                &nbsp; <OpenClose open={place.opening_hours ? place.opening_hours.open_now : 'maybe'} />
+              </td>
             </tr>
             <tr>
-              <Rating percentage={place.rating} />
+              <td>
+                <Rating percentage={place.rating} />
+              </td>
             </tr>
           </tbody>
         </table>

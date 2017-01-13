@@ -1,3 +1,9 @@
+/**
+ |==========================================================================================
+ | The parent component of the app
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component } from 'react';
 import NavBar from './navBar';
 import Map from '../containers/map';
@@ -7,8 +13,6 @@ require('../../styles/style.scss');
 
 export default class App extends Component {
   render() {
-    // San francisco is default center
-    // const initialCenter = { lng: -122.395902, lat: 37.781615 };
     return (
       <div>
         <NavBar />

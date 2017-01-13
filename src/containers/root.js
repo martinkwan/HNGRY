@@ -1,3 +1,8 @@
+/**
+ |==========================================================================================
+ | This is a container that wraps App with Redux
+ |------------------------------------------------------------------------------------------
+ */
 import React, { Component, PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import App from '../components/app';
