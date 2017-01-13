@@ -12,7 +12,6 @@ class Map extends Component {
     this.state = {
       markers: [],
       filterState: 'None',
-      needUpdate: true,
       places: [],
     };
   }
@@ -39,17 +38,21 @@ class Map extends Component {
   componentDidUpdate() {
     const place = this.props.searchLocation;
     if (place.geometry) {
-      // If component update is via autocomplete search, setZoom
-      if (place.address_components) {
-        this.map.setZoom(14);
-      }
       this.map.panTo(place.geometry.location);
+      // If component update is via autocomplete search,
+      // Clear event listeners so map can zoom in without invoking this.search
+      // Then reset event listner after zooming
+      if (place.address_components) {
+        google.maps.event.clearListeners(this.map, 'zoom_changed');
+        this.map.setZoom(14);
+        google.maps.event.addListener(this.map, 'zoom_changed', () => this.search());
+      }
       // If component update is via filter change, set up markers w/o updating redux state
       if (this.state.filterState !== this.props.filter) {
         this.sortPlaces();
         this.setUpMarkers(this.state.places);
         this.state.filterState = this.props.filter;
-        // If component update was via panning map or zooming, update redux state w/ new location
+        // If component update is via panning map or zooming, update redux state w/ new location
       } else {
         this.search();
       }
@@ -225,7 +228,6 @@ Map.propTypes = {
   updatePlaces: PropTypes.func,
   initialCenter: PropTypes.object,
   searchLocation: PropTypes.object,
-  places: PropTypes.array,
   filter: PropTypes.string,
 };
 
@@ -239,7 +241,6 @@ Map.defaultProps = {
 function mapStateToProps(state) {
   return {
     searchLocation: state.searchLocation,
-    // places: state.places,
     filter: state.filter,
   };
 }

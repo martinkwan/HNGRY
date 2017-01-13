@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export default class Price extends Component {
   render() {
     const { rating } = this.props;
-    // If component is not part of infowindow (-1 === passed from infoWindow) and is missing rating,
+    // If component is not part of infowindow (-1 is passed from infoWindow) and is missing rating,
     // do not render usd icons
     if (rating !== -1 && !rating) {
       return (
