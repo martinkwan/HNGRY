@@ -11,7 +11,7 @@ class Map extends Component {
     super(props);
     this.state = {
       markers: [],
-      filterState: null,
+      filterState: 'None',
       needUpdate: true,
     };
   }
@@ -30,14 +30,6 @@ class Map extends Component {
     // On drag event, update redux state with new coordinates
     google.maps.event.addListener(this.map, 'dragend', () => this.props.updateMap({ geometry: { location: this.map.getCenter() } }));
   }
-  /**
-   * Set up flag to load filtered places only for the initial time.
-   */
-  componentWillUpdate() {
-    if (this.state.filterState !== false) {
-      this.state.filterState = this.props.filter;
-    }
-  }
 
   /**
    * If redux state is updated via search bar, pan the map to the new location
@@ -46,15 +38,16 @@ class Map extends Component {
   componentDidUpdate() {
     const place = this.props.searchLocation;
     if (place.geometry) {
-      // If component update is via autocomplete search
+      // If component update is via autocomplete search, setZoom
       if (place.address_components) {
         this.map.setZoom(14);
       }
       this.map.panTo(place.geometry.location);
-      // If component update is via filter change
-      if (this.state.filterState !== false || null) {
+      // If component update is via filter change, set up markers w/o updating redux state
+      if (this.state.filterState !== this.props.filter) {
         this.setUpMarkers(this.props.places);
-        // If component update was via panning map or zooming
+        this.state.filterState = this.props.filter;
+        // If component update was via panning map or zooming, update redux state w/ new location
       } else {
         this.search();
       }
@@ -67,7 +60,6 @@ class Map extends Component {
    * Set up markers on map
    */
   setUpMarkers(results) {
-    this.state.filterState = false;
     this.clearMarkers(this.state.markers);
     // Create a marker for each restaurant found.
     for (let i = 0; i < results.length; i++) {
@@ -81,6 +73,7 @@ class Map extends Component {
       // Show the details of that restaurant in an info window if marker is clicked.
       this.state.markers[i].placeResult = results[i];
       google.maps.event.addListener(this.state.markers[i], 'mouseover', this.showInfoWindow.bind(this, this.state.markers[i]));
+      google.maps.event.addListener(this.state.markers[i], 'mouseout', this.closeInfoWindow.bind(this, this.state.markers[i]));
       setTimeout(this.dropMarker(i, this.state.markers), i * 100);
     }
   }
@@ -96,11 +89,13 @@ class Map extends Component {
     this.places.nearbySearch(search, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         if (this.state.needUpdate) {
+          console.log('resetting state in search()')
           this.props.updatePlaces(results);
           this.state.needUpdate = false;
           // Temp fix to prevent state from repeatedly updating
           setInterval(() => { this.state.needUpdate = true; }, 600);
         } else {
+          console.log('calling setUpMarkers in search()')
           this.setUpMarkers(results);
         }
       }
@@ -108,8 +103,8 @@ class Map extends Component {
   }
 
   /**
-   * Event listener function opens infoWindow of the marker that is clicked
-   * @param  {object} marker [marker that was clicked]
+   * Event listener function opens infoWindow of the marker that is hovered over
+   * @param  {object} marker [marker that was hovered]
    */
   showInfoWindow(marker) {
     this.places.getDetails({ placeId: marker.placeResult.place_id },
@@ -120,6 +115,13 @@ class Map extends Component {
         this.infoWindow.open(this.map, marker);
         this.buildInfoWindow(place);
       });
+  }
+  /**
+   * Event listener function closes infoWindow when mouse hovers off
+   * @param  {object} marker [marker that was hovered off of]
+   */
+  closeInfoWindow(marker) {
+    this.infoWindow.close(this.map, marker);
   }
 
   /**
@@ -179,7 +181,7 @@ class Map extends Component {
   }
 
   /**
-   * Center the google map at the intial lat and lng passed via this.props
+   * Center the google map at the initial lat and lng passed via this.props
    */
   mapCenter() {
     return new google.maps.LatLng(
@@ -204,6 +206,7 @@ Map.propTypes = {
   initialCenter: PropTypes.object,
   searchLocation: PropTypes.object,
   places: PropTypes.array,
+  filter: PropTypes.string,
 };
 
 /**
