@@ -13,6 +13,7 @@ class Map extends Component {
       markers: [],
       filterState: 'None',
       needUpdate: true,
+      places: [],
     };
   }
 
@@ -45,7 +46,8 @@ class Map extends Component {
       this.map.panTo(place.geometry.location);
       // If component update is via filter change, set up markers w/o updating redux state
       if (this.state.filterState !== this.props.filter) {
-        this.setUpMarkers(this.props.places);
+        this.sortPlaces();
+        this.setUpMarkers(this.state.places);
         this.state.filterState = this.props.filter;
         // If component update was via panning map or zooming, update redux state w/ new location
       } else {
@@ -55,6 +57,7 @@ class Map extends Component {
       document.getElementById('autocomplete').placeholder = 'Enter a location';
     }
   }
+
 
   /**
    * Set up markers on map
@@ -77,7 +80,16 @@ class Map extends Component {
       setTimeout(this.dropMarker(i, this.state.markers), i * 100);
     }
   }
-
+  /**
+  * Sort this.state.places depending on filter
+  */
+  sortPlaces() {
+    if (this.props.filter === 'Ratings') {
+      this.state.places.sort((a, b) => b.rating - a.rating);
+    } else if (this.props.filter === 'Price') {
+      this.state.places.sort((a, b) => a.price_level - b.price_level);
+    }
+  }
   /**
   * Searches map for all restaurants, then drops markers on map where restaurants are
   */
@@ -88,16 +100,11 @@ class Map extends Component {
     };
     this.places.nearbySearch(search, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        if (this.state.needUpdate) {
-          console.log('resetting state in search()')
-          this.props.updatePlaces(results);
-          this.state.needUpdate = false;
-          // Temp fix to prevent state from repeatedly updating
-          setInterval(() => { this.state.needUpdate = true; }, 600);
-        } else {
-          console.log('calling setUpMarkers in search()')
-          this.setUpMarkers(results);
-        }
+        this.state.places = results;
+        // sort places according to current filter before update redux state
+        this.sortPlaces();
+        this.props.updatePlaces(this.state.places);
+        this.setUpMarkers(results);
       }
     });
   }
@@ -137,8 +144,21 @@ class Map extends Component {
     for (let i = 1; i < 5; i++) {
       document.getElementById(`price-${i}`).classList.remove('price-fill-in');
     }
-    for (let i = 1; i < place.price_level + 1; i++) {
-      document.getElementById(`price-${i}`).classList.add('price-fill-in');
+    // If no price_level given, show Price N/A and remove fa-usd icons
+    if (!place.price_level) {
+      document.getElementById('price').textContent = 'Price N/A';
+      for (let i = 1; i < 5; i++) {
+        document.getElementById(`price-${i}`).classList.remove('fa-usd');
+      }
+      // If price_level given, fill usd icon with correct amount
+    } else {
+      document.getElementById('price').textContent = '';
+      for (let i = 1; i < 5; i++) {
+        document.getElementById(`price-${i}`).classList.add('fa-usd');
+      }
+      for (let i = 1; i < place.price_level + 1; i++) {
+        document.getElementById(`price-${i}`).classList.add('price-fill-in');
+      }
     }
   }
 
@@ -219,7 +239,7 @@ Map.defaultProps = {
 function mapStateToProps(state) {
   return {
     searchLocation: state.searchLocation,
-    places: state.places,
+    // places: state.places,
     filter: state.filter,
   };
 }
