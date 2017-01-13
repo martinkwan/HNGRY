@@ -2,10 +2,10 @@
  |==========================================================================================
  | This is a container that displays the list of restaurants.
  | It needs access to places from the redux state.
- |
- | When redux's places state is updated, this list rerenders with the updated places
- |
  | Does not need to dispatch to the redux state.
+ |
+ | A. When redux's places state is updated via the map container:
+ |  1. This list rerenders with the new places.
  |
  |------------------------------------------------------------------------------------------
  */

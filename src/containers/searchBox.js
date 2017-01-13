@@ -1,3 +1,17 @@
+/**
+ |==========================================================================================
+ | This is a container that searches locations for restaurants.
+ | It needs to dispatch from the redux state.
+ | Does not need to access the redux state.
+ |
+ | A. When city or address is selected from autocomplete:
+ |  1. The updateLocation action is dispatched to the reducers with the location object.
+ |  2. Redux's location state is updated.
+ |  3. Invokes map container to update with new coordinates.
+ |
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

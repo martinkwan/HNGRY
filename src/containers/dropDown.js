@@ -2,12 +2,13 @@
  |==========================================================================================
  | This is a container that displays the list of filters.
  | It needs to dispatch to the redux state.
- |
- | When a filter is selected, redux's updateFilter action is dispatched to the reducers
- | to update redux filter state, which then updates the map container,
- | which then updates list container.
- |
  | Does not need to access to the redux state.
+ |
+ | A. When a filter is selected:
+ |  1. The updateFilter action is dispatched to the reducers with the filter category.
+ |  2. Redux's filter state is updated.
+ |  3. This map rerenders with the markers with the numbers in the sorted order.
+ |  4. Eventually list container is updated via map container changing redux's place state
  |
  |------------------------------------------------------------------------------------------
  */

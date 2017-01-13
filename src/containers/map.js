@@ -3,7 +3,7 @@
  | This is a container that displays the google map.
  | It needs to both dispatch and access to the redux state.
  |
- | A. When redux's searchlocation state is updated via search or geolocation:
+ | A. When redux's location state is updated via search or geolocation:
  |  1. This map rerenders with the new location.
  |  2. Searches for restaurants in new map bounds.
  |  3. The updatePlaces action is dispatched to the reducers with the search results.
@@ -70,7 +70,7 @@ class Map extends Component {
    * And start searching the new location for restaurants
    */
   componentDidUpdate() {
-    const place = this.props.searchLocation;
+    const place = this.props.location;
     if (place.geometry) {
       this.map.panTo(place.geometry.location);
       // If component update is via autocomplete search,
@@ -261,7 +261,7 @@ Map.propTypes = {
   updateLocation: PropTypes.func,
   updatePlaces: PropTypes.func,
   initialCenter: PropTypes.object,
-  searchLocation: PropTypes.object,
+  location: PropTypes.object,
   filter: PropTypes.string,
 };
 
@@ -272,9 +272,9 @@ Map.defaultProps = {
   initialCenter: { lng: -122.395902, lat: 37.781615 },
 };
 
-function mapStateToProps({ searchLocation, filter }) {
+function mapStateToProps({ location, filter }) {
   return {
-    searchLocation,
+    location,
     filter,
   };
 }

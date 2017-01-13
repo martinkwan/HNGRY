@@ -36,7 +36,7 @@ const updateFilter = (state = 'None', action) => {
 };
 
 const rootReducer = combineReducers({
-  searchLocation: updateLocation,
+  location: updateLocation,
   places: updatePlaces,
   filter: updateFilter,
 });
