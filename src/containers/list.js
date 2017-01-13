@@ -1,18 +1,17 @@
 /**
- * ==========================================================================================
- * This is a container that displays the list of restaurants.
- * It needs access to the searchLocation, filter, and places from the redux state.
- * When searchLocation is updated, this list updates
- * Does not need to dispatch to the redux state.
- *
- * While this is a container, React is not actually being used to manipulate the
- * DOM here. We simply call a function that will directly go to our canvas and
- * ------------------------------------------------------------------------------------------
+ |==========================================================================================
+ | This is a container that displays the list of restaurants.
+ | It needs access to places from the redux state.
+ |
+ | When redux's places state is updated, this list rerenders with the updated places
+ |
+ | Does not need to dispatch to the redux state.
+ |
+ |------------------------------------------------------------------------------------------
  */
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
 import ListItem from '../components/listItem';
 
 class List extends Component {
@@ -45,11 +44,9 @@ List.propTypes = {
   places: PropTypes.array.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps({ places }) {
   return {
-    searchLocation: state.searchLocation,
-    filter: state.filter,
-    places: state.places,
+    places,
   };
 }
 

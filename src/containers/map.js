@@ -1,12 +1,46 @@
+/**
+ |==========================================================================================
+ | This is a container that displays the google map.
+ | It needs to both dispatch and access to the redux state.
+ |
+ | A. When redux's searchlocation state is updated via search or geolocation:
+ |  1. This map rerenders with the new location.
+ |  2. Searches for restaurants in new map bounds.
+ |  3. The updatePlaces action is dispatched to the reducers with the search results.
+ |  4. Redux's place state is updated.
+ |  4. Invokes the list container to update.
+ |
+ | B. When redux's filter state is updated via dropdown container:
+ |  1. This map rerenders with the markers with the numbers in the sorted order.
+ |  2. The updatePlaces action is dispatched to the reducers with places in sorted order.
+ |  3. Redux's place state is updated.
+ |  4. Invokes the list container to update
+ |
+ | C. When map is panned, updateLocation action is dispatched to reducers:
+ |  1. The updateLocation action is dispatched to the reducers with new location.
+ |  2. Redux's location state is updated.
+ |  3. Invokes this map container to update with new coordinates.
+ |  4. Searches map for restaurants and drops markers.
+ |  5. The updatePlaces action is dispatched to the reducers with the search results.
+ |  6. Redux's place state is updated.
+ |  7. Invokes the list container to update.
+ |
+ | D. When map is zoomed, the map searches for restaurants in the new view area:
+ |  1. Searches map for restaurants and drops markers.
+ |  2. The updatePlaces action is dispatched to the reducers with the search results.
+ |  3. Redux's place state is updated.
+ |  4. Invokes the list container to update.
+ |
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateMap, updatePlaces } from '../actions/index';
-
+import { updateLocation, updatePlaces } from '../actions/index';
 import InfoWindow from '../components/infoWindow';
 
 class Map extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +62,7 @@ class Map extends Component {
     });
     google.maps.event.addListener(this.map, 'zoom_changed', () => this.search());
     // On drag event, update redux state with new coordinates
-    google.maps.event.addListener(this.map, 'dragend', () => this.props.updateMap({ geometry: { location: this.map.getCenter() } }));
+    google.maps.event.addListener(this.map, 'dragend', () => this.props.updateLocation({ geometry: { location: this.map.getCenter() } }));
   }
 
   /**
@@ -52,7 +86,8 @@ class Map extends Component {
         this.sortPlaces();
         this.setUpMarkers(this.state.places);
         this.state.filterState = this.props.filter;
-        // If component update is via panning map or zooming, update redux state w/ new location
+        // If component update is via panning map or zooming,
+        // update redux state w/ new search results
       } else {
         this.search();
       }
@@ -60,7 +95,6 @@ class Map extends Component {
       document.getElementById('autocomplete').placeholder = 'Enter a location';
     }
   }
-
 
   /**
    * Set up markers on map
@@ -224,7 +258,7 @@ class Map extends Component {
 }
 
 Map.propTypes = {
-  updateMap: PropTypes.func,
+  updateLocation: PropTypes.func,
   updatePlaces: PropTypes.func,
   initialCenter: PropTypes.object,
   searchLocation: PropTypes.object,
@@ -238,15 +272,15 @@ Map.defaultProps = {
   initialCenter: { lng: -122.395902, lat: 37.781615 },
 };
 
-function mapStateToProps(state) {
+function mapStateToProps({ searchLocation, filter }) {
   return {
-    searchLocation: state.searchLocation,
-    filter: state.filter,
+    searchLocation,
+    filter,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateMap, updatePlaces }, dispatch);
+  return bindActionCreators({ updateLocation, updatePlaces }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

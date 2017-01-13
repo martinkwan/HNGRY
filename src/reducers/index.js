@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { UPDATE_MAP, UPDATE_FILTER, UPDATE_PLACES } from '../actions/index';
+import { UPDATE_LOCATION, UPDATE_FILTER, UPDATE_PLACES } from '../actions/index';
 
-const updateMap = (state = {}, action) => {
+const updateLocation = (state = {}, action) => {
   switch (action.type) {
-    case UPDATE_MAP:
+    case UPDATE_LOCATION:
       return action.payload || state;
     default:
       return state;
@@ -36,7 +36,7 @@ const updateFilter = (state = 'None', action) => {
 };
 
 const rootReducer = combineReducers({
-  searchLocation: updateMap,
+  searchLocation: updateLocation,
   places: updatePlaces,
   filter: updateFilter,
 });

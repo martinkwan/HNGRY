@@ -1,5 +1,5 @@
 import React from 'react';
-import DropDown from './dropDown';
+import DropDown from '../containers/dropDown';
 import List from '../containers/list';
 
 const ListContainer = () =>
