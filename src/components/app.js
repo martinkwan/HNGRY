@@ -7,8 +7,6 @@ require('../../styles/style.scss');
 
 export default class App extends Component {
   render() {
-    // San francisco is default center
-    // const initialCenter = { lng: -122.395902, lat: 37.781615 };
     return (
       <div>
         <NavBar />
