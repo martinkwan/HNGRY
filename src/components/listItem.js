@@ -1,3 +1,9 @@
+/**
+ |==========================================================================================
+ | The component that renders an individual item on the list of restaurants
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 import Rating from './rating';
 import Price from './price';

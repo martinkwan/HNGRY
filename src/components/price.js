@@ -1,3 +1,9 @@
+/**
+ |==========================================================================================
+ | The component that renders the price level of a restaurant 1 star is cheap, 4 is expensive
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 
 export default class Price extends Component {

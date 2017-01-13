@@ -6,7 +6,6 @@
  |
  | A. When redux's places state is updated via the map container:
  |  1. This list rerenders with the new places.
- |
  |------------------------------------------------------------------------------------------
  */
 

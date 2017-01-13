@@ -9,7 +9,6 @@
  |  2. Redux's filter state is updated.
  |  3. This map rerenders with the markers with the numbers in the sorted order.
  |  4. Eventually list container is updated via map container changing redux's place state
- |
  |------------------------------------------------------------------------------------------
  */
 

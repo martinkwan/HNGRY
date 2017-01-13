@@ -1,3 +1,8 @@
+/**
+ |==========================================================================================
+ | The component that renders the Open or close text
+ |------------------------------------------------------------------------------------------
+ */
 import React, { Component } from 'react';
 
 export default class OpenClose extends Component {

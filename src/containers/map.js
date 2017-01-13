@@ -30,7 +30,6 @@
  |  2. The updatePlaces action is dispatched to the reducers with the search results.
  |  3. Redux's place state is updated.
  |  4. Invokes the list container to update.
- |
  |------------------------------------------------------------------------------------------
  */
 

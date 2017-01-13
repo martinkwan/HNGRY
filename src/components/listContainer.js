@@ -1,3 +1,9 @@
+/**
+ |==========================================================================================
+ | The component that renders the container that holds the list of places and dropdown
+ |------------------------------------------------------------------------------------------
+ */
+
 import React from 'react';
 import DropDown from '../containers/dropDown';
 import List from '../containers/list';

@@ -1,3 +1,9 @@
+/**
+ |==========================================================================================
+ | The component that renders the rating level of a restaurant 1 star is bad, 5 is great
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component, PropTypes } from 'react';
 
 export default class Rating extends Component {

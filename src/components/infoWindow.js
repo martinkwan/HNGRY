@@ -1,3 +1,9 @@
+/**
+ |==========================================================================================
+ | The component that renders the InfoWindow on the map
+ |------------------------------------------------------------------------------------------
+ */
+
 import React from 'react';
 import Price from './price';
 import OpenClose from './openClose';

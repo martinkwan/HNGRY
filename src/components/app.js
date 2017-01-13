@@ -1,3 +1,9 @@
+/**
+ |==========================================================================================
+ | The parent component of the app
+ |------------------------------------------------------------------------------------------
+ */
+
 import React, { Component } from 'react';
 import NavBar from './navBar';
 import Map from '../containers/map';

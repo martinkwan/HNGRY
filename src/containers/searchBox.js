@@ -8,7 +8,6 @@
  |  1. The updateLocation action is dispatched to the reducers with the location object.
  |  2. Redux's location state is updated.
  |  3. Invokes map container to update with new coordinates.
- |
  |------------------------------------------------------------------------------------------
  */
 
