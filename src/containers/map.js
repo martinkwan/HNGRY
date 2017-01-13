@@ -11,6 +11,8 @@ class Map extends Component {
     super(props);
     this.state = {
       markers: [],
+      filterState: null,
+      needUpdate: true,
     };
   }
 
@@ -29,6 +31,11 @@ class Map extends Component {
     google.maps.event.addListener(this.map, 'dragend', () => this.props.updateMap({ geometry: { location: this.map.getCenter() } }));
   }
 
+  componentWillUpdate() {
+    if(this.state.filterState !== false){
+      this.state.filterState = this.props.filter;
+    }
+  }
 
   /**
    * If redux state is updated via search bar, pan the map to the new location
@@ -42,15 +49,43 @@ class Map extends Component {
         this.map.setZoom(14);
       }
       this.map.panTo(place.geometry.location);
-      this.search();
+      // If component update is via filter change
+      if (this.state.filterState !== false || null) {
+        this.setUpMarkers(this.props.places);
+        // If component update was via panning map or zooming
+      } else {
+        this.search();
+      }
     } else {
       document.getElementById('autocomplete').placeholder = 'Enter a location';
     }
   }
 
   /**
-   * Searches map for all restaurants, then drops markers on map where restaurants are
+   * Set up markers on map
    */
+  setUpMarkers(results) {
+    this.state.filterState = false;
+    this.clearMarkers(this.state.markers);
+    // Create a marker for each restaurant found.
+    for (let i = 0; i < results.length; i++) {
+      const markerIcon = `http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=${(i + 1)}|26d6d6|ffffff`;
+      // Use marker animation to drop the icons incrementally on the map.
+      this.state.markers[i] = new google.maps.Marker({
+        position: results[i].geometry.location,
+        animation: google.maps.Animation.DROP,
+        icon: markerIcon,
+      });
+      // Show the details of that restaurant in an info window if marker is clicked.
+      this.state.markers[i].placeResult = results[i];
+      google.maps.event.addListener(this.state.markers[i], 'mouseover', this.showInfoWindow.bind(this, this.state.markers[i]));
+      setTimeout(this.dropMarker(i, this.state.markers), i * 100);
+    }
+  }
+
+  /**
+  * Searches map for all restaurants, then drops markers on map where restaurants are
+  */
   search() {
     const search = {
       bounds: this.map.getBounds(),
@@ -58,22 +93,14 @@ class Map extends Component {
     };
     this.places.nearbySearch(search, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        this.clearMarkers(this.state.markers);
-        // Create a marker for each restaurant found.
-        for (let i = 0; i < results.length; i++) {
-          const markerIcon = `http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=${(i + 1)}|26d6d6|ffffff`;
-          // Use marker animation to drop the icons incrementally on the map.
-          this.state.markers[i] = new google.maps.Marker({
-            position: results[i].geometry.location,
-            animation: google.maps.Animation.DROP,
-            icon: markerIcon,
-          });
-          // Show the details of that restaurant in an info window if marker is clicked.
-          this.state.markers[i].placeResult = results[i];
-          google.maps.event.addListener(this.state.markers[i], 'mouseover', this.showInfoWindow.bind(this, this.state.markers[i]));
-          setTimeout(this.dropMarker(i, this.state.markers), i * 100);
+        if (this.state.needUpdate) {
+          this.props.updatePlaces(results);
+          this.state.needUpdate = false;
+          // Temp fix to prevent state from repeatedly updating
+          setInterval(() => { this.state.needUpdate = true; }, 600);
+        } else {
+          this.setUpMarkers(results);
         }
-        this.props.updatePlaces(results);
       }
     });
   }
@@ -182,7 +209,11 @@ Map.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  return { searchLocation: state.searchLocation };
+  return {
+    searchLocation: state.searchLocation,
+    places: state.places,
+    filter: state.filter,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
