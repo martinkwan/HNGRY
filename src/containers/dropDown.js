@@ -1,8 +1,8 @@
 /**
  |==========================================================================================
  | This is a container that displays the list of filters.
- | It needs to dispatch to the redux state.
- | Does not need to access to the redux state.
+ | It needs to dispatch to redux state.
+ | Does not need to access to redux state.
  |
  | A. When a filter is selected:
  |  1. The updateFilter action is dispatched to the reducers with the filter category.

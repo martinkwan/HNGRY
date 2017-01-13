@@ -1,7 +1,7 @@
 /**
  |==========================================================================================
  | This is a container that displays the google map.
- | It needs to both dispatch and access to the redux state.
+ | It needs to both dispatch and access to redux state.
  |
  | A. When redux's location state is updated via search or geolocation:
  |  1. This map rerenders with the new location.

@@ -1,13 +1,19 @@
 /**
  |==========================================================================================
  | This is a container that searches locations for restaurants.
- | It needs to dispatch from the redux state.
- | Does not need to access the redux state.
+ | Does not need to access redux state.
+ | Needs to dispatch to redux state.
  |
  | A. When city or address is selected from autocomplete:
  |  1. The updateLocation action is dispatched to the reducers with the location object.
  |  2. Redux's location state is updated.
  |  3. Invokes map container to update with new coordinates.
+ |
+ | B. On initial load of searchBox or when geolocation icon is pressed:
+ |  1. Browser geolocation locates user.
+ |  2. The updateLocation action is dispatched to the reducers with the location object.
+ |  3. Redux's location state is updated.
+ |  4. Invokes map container to update with new coordinates.
  |------------------------------------------------------------------------------------------
  */
 
@@ -26,6 +32,7 @@ class SearchBox extends Component {
    */
   componentDidMount() {
     this.initAutocomplete();
+    this.locateUser();
   }
 
   /**
@@ -72,7 +79,6 @@ class SearchBox extends Component {
   }
 
   render() {
-    this.locateUser();
     return (
       <div className="form-group">
         <input
