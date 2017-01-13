@@ -12,5 +12,6 @@
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true, "optionalDependencies": true, "peerDependencies": true }],
     "no-use-before-define": 0,
     "react/prefer-stateless-function": 0,
+    "no-nested-ternary": 0,
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import OpenClose from './openClose';
 
 export default class Price extends Component {
   openOrClosed(val) {
@@ -18,7 +19,7 @@ export default class Price extends Component {
         <i id="price-2" className={`fa fa-usd ${rating >= 2 ? 'price-fill-in' : ''}`} />
         <i id="price-3" className={`fa fa-usd ${rating >= 3 ? 'price-fill-in' : ''}`} />
         <i id="price-4" className={`fa fa-usd ${rating >= 4 ? 'price-fill-in' : ''}`} />
-        &nbsp; { this.openOrClosed(open) }
+        &nbsp; <OpenClose open={open} />
       </td>
     );
   }

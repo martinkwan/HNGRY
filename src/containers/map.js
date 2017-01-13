@@ -30,9 +30,11 @@ class Map extends Component {
     // On drag event, update redux state with new coordinates
     google.maps.event.addListener(this.map, 'dragend', () => this.props.updateMap({ geometry: { location: this.map.getCenter() } }));
   }
-
+  /**
+   * Set up flag to load filtered places only for the initial time.
+   */
   componentWillUpdate() {
-    if(this.state.filterState !== false){
+    if (this.state.filterState !== false) {
       this.state.filterState = this.props.filter;
     }
   }
@@ -127,6 +129,8 @@ class Map extends Component {
   buildInfoWindow(place) {
     document.getElementById('info-window-name').textContent = place.name;
     document.getElementById('info-window-address').textContent = place.vicinity;
+    const openText = place.opening_hours ? (place.opening_hours.open_now ? 'Open Now' : 'Currently Closed') : 'Hours N/A';
+    document.getElementById('open-close').textContent = openText;
     // Reset price-fill-in class on price rating before setting again
     for (let i = 1; i < 5; i++) {
       document.getElementById(`price-${i}`).classList.remove('price-fill-in');
@@ -199,6 +203,7 @@ Map.propTypes = {
   updatePlaces: PropTypes.func,
   initialCenter: PropTypes.object,
   searchLocation: PropTypes.object,
+  places: PropTypes.array,
 };
 
 /**
