@@ -8,4 +8,7 @@
 }
 .map-container{
   height:$max-map-height;
+  @include mobile{
+    height: $mobile-max-map-height;
+  }
 }

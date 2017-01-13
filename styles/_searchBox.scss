@@ -1,9 +1,16 @@
 #autocomplete{
   width:600px;
+  @include mobile{
+    width: 100%;
+  }
 }
 .enable-location-img{
   height: 25px;
   position:relative;
   right: 30px;
   cursor:pointer;
+  @include mobile{
+    position: absolute;
+    top: 55px;
+  }
 }

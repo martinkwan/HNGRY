@@ -11,26 +11,35 @@ const updateMap = (state = {}, action) => {
 };
 
 const updatePlaces = (state = [], action) => {
+  const sortedPlaces = state.slice();
   switch (action.type) {
     case UPDATE_PLACES:
       return action.payload || state;
     case UPDATE_FILTER:
       if (action.payload === 'Ratings') {
-        state.sort((a, b) => b.rating - a.rating);
+        sortedPlaces.sort((a, b) => b.rating - a.rating);
       } else if (action.payload === 'Price') {
-        state.sort((a, b) => a.price_level - b.price_level);
+        sortedPlaces.sort((a, b) => a.price_level - b.price_level);
       }
-      console.log(state, 'state for updatePlaces')
-      return Object.assign([], state);
+      return Object.assign([], sortedPlaces);
     default:
       return state;
   }
 };
 
+const updateFilter = (state = false, action) => {
+  switch (action.type) {
+    case UPDATE_FILTER:
+      return action.payload || state;
+    default:
+      return state;
+  }
+};
 
 const rootReducer = combineReducers({
   searchLocation: updateMap,
   places: updatePlaces,
+  filter: updateFilter,
 });
 
 export default rootReducer;

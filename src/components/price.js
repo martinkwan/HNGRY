@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Price extends Component {
   openOrClosed(val) {
@@ -23,3 +23,7 @@ export default class Price extends Component {
     );
   }
 }
+
+Price.propTypes = {
+  rating: PropTypes.number,
+};

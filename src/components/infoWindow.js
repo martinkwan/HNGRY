@@ -1,6 +1,3 @@
-/**
- * TODO: Implement number of marker on infowindow
- */
 import React from 'react';
 import Price from './price';
 
@@ -17,7 +14,6 @@ const InfoWindow = () =>
         <Price />
       </tr>
     </tbody>
-
   </table>;
 
 export default InfoWindow;

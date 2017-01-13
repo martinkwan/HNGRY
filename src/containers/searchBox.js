@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateMap } from '../actions/index';
@@ -8,12 +8,14 @@ class SearchBox extends Component {
     super(props);
     this.locateUser = this.locateUser.bind(this);
   }
-
+  /**
+   * Initialize autocomplete object after component renders because google needs access to DOM
+   */
   componentDidMount() {
     this.initAutocomplete();
   }
+
   /**
-   * TODO: Submit first entry of auto complete when enter is pressed.
   * Prevent submitting page when the user presses enter in the searchbar
   * User should only search via autocomplete selection
   * @param  {Object} event
@@ -23,6 +25,7 @@ class SearchBox extends Component {
       event.preventDefault();
     }
   }
+
   /**
    * Create autocomplete object to search geographical location types only
    */
@@ -32,6 +35,7 @@ class SearchBox extends Component {
         { types: ['geocode'] });
     autocomplete.addListener('place_changed', () => this.props.updateMap(autocomplete.getPlace()));
   }
+
   /**
    * Use browser geolocation to locate user, then pan to user location
    */
@@ -65,6 +69,7 @@ class SearchBox extends Component {
           onKeyDown={this.onFormSubmit}
         />
         <img
+          alt="enable location icon"
           src="../../assets/enable_location.png"
           className="enable-location-img"
           onClick={this.locateUser}
@@ -73,6 +78,10 @@ class SearchBox extends Component {
     );
   }
 }
+
+SearchBox.propTypes = {
+  updateMap: PropTypes.func,
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateMap }, dispatch);

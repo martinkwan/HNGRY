@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateFilter } from '../actions/index';
@@ -47,6 +47,10 @@ class DropDown extends Component {
     );
   }
 }
+
+DropDown.propTypes = {
+  updateFilter: PropTypes.func,
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateFilter }, dispatch);

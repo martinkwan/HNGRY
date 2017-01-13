@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Rating from './rating';
 import Price from './price';
 
@@ -7,11 +7,11 @@ export default class ListItem extends Component {
     const { place } = this.props;
     const dimensions = {
       maxWidth: 100,
-      maxHeight: 100
-    }
+      maxHeight: 100,
+    };
     return (
       <div className="clearfix">
-        <img className="list-item-image" src={`${place.photos ? place.photos[0].getUrl(dimensions) : 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71'}.png`} />
+        <img alt="Place" className="list-item-image" src={`${place.photos ? place.photos[0].getUrl(dimensions) : 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71'}.png`} />
         <table className="list-table">
           <tbody>
             <tr>
@@ -33,12 +33,6 @@ export default class ListItem extends Component {
   }
 }
 
-      //
-      // <div>
-      //   <h3>{number + 1}</h3>
-      //   <h4>{place.name}</h4>
-      //   <h8>{place.vicinity}</h8>
-      //   <Rating percentage={place.rating} />
-      //   <Price rating={place.price_level} />
-      //   <img src={`${place.photos ? place.photos[0].getUrl(dimensions) : 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71'}.png`} />
-      // </div>
+ListItem.propTypes = {
+  place: PropTypes.object,
+};
