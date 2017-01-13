@@ -11,17 +11,16 @@ const updateMap = (state = {}, action) => {
 };
 
 const updatePlaces = (state = [], action) => {
-  const sortedPlaces = state.slice();
   switch (action.type) {
     case UPDATE_PLACES:
       return action.payload || state;
     case UPDATE_FILTER:
       if (action.payload === 'Ratings') {
-        sortedPlaces.sort((a, b) => b.rating - a.rating);
+        state.sort((a, b) => b.rating - a.rating);
       } else if (action.payload === 'Price') {
-        sortedPlaces.sort((a, b) => a.price_level - b.price_level);
+        state.sort((a, b) => a.price_level - b.price_level);
       }
-      return Object.assign([], sortedPlaces);
+      return Object.assign([], state);
     default:
       return state;
   }
