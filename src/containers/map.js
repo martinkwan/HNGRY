@@ -144,8 +144,21 @@ class Map extends Component {
     for (let i = 1; i < 5; i++) {
       document.getElementById(`price-${i}`).classList.remove('price-fill-in');
     }
-    for (let i = 1; i < place.price_level + 1; i++) {
-      document.getElementById(`price-${i}`).classList.add('price-fill-in');
+    // If no price_level given, show Price N/A and remove fa-usd icons
+    if (!place.price_level) {
+      document.getElementById('price').textContent = 'Price N/A';
+      for (let i = 1; i < 5; i++) {
+        document.getElementById(`price-${i}`).classList.remove('fa-usd');
+      }
+      // If price_level given, fill usd icon with correct amount
+    } else {
+      document.getElementById('price').textContent = '';
+      for (let i = 1; i < 5; i++) {
+        document.getElementById(`price-${i}`).classList.add('fa-usd');
+      }
+      for (let i = 1; i < place.price_level + 1; i++) {
+        document.getElementById(`price-${i}`).classList.add('price-fill-in');
+      }
     }
   }
 
