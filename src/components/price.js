@@ -13,8 +13,9 @@ export default class Price extends Component {
 
   render() {
     const { rating, open } = this.props;
-    // If component is not part of infowindow and is missing rating, do not render usd icons
-    if (rating !== 'infoWindow' && !rating) {
+    // If component is not part of infowindow (-1 === passed from infoWindow) and is missing rating,
+    // do not render usd icons
+    if (rating !== -1 && !rating) {
       return (
         <td >
           <span id="price">Price N/A</span>
