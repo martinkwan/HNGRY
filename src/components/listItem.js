@@ -28,7 +28,9 @@ export default class ListItem extends Component {
               </td>
             </tr>
             <tr>
-              <Rating percentage={place.rating} />
+              <td>
+                <Rating percentage={place.rating} />
+              </td>
             </tr>
           </tbody>
         </table>
