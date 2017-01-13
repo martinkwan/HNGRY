@@ -27,7 +27,7 @@ const updatePlaces = (state = [], action) => {
   }
 };
 
-const updateFilter = (state = false, action) => {
+const updateFilter = (state = 'None', action) => {
   switch (action.type) {
     case UPDATE_FILTER:
       return action.payload || state;
