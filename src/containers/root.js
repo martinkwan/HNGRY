@@ -1,6 +1,6 @@
 /**
  |==========================================================================================
- | This is a container that wraps App with Redux
+ | This is a container that wraps App with redux
  |------------------------------------------------------------------------------------------
  */
 import React, { Component, PropTypes } from 'react';
