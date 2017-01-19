@@ -1,6 +1,8 @@
 # HNGRY
 Web application to plot nearby restaurants on a map.
 
+![Alt text](screenShot.png "HNGRY")
+
 ## Installation
 - Clone down the repo
 - Install NPM dependencies in terminal: `npm install`
