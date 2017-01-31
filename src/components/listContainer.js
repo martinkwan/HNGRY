@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import DropDown from '../containers/dropDown';
-import List from '../containers/list';
+import DropDown from '../containers/DropDown';
+import List from '../containers/List';
 
 const ListContainer = () =>
   <div className="list">
