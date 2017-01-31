@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from '../../src/components/App';
+import InfoWindow from '../../src/components/InfoWindow';
 
-describe('(Component) App', () => {
+describe('(Component) InfoWindow', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<App />);
+    wrapper = shallow(<InfoWindow />);
   });
   it('renders self successfully', () => {
     expect(wrapper).to.have.length(1);
   });
-})
+});

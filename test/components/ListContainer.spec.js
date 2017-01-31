@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from '../../src/components/App';
+import ListContainer from '../../src/components/ListContainer';
 
-describe('(Component) App', () => {
+describe('(Component) ListContainer', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<App />);
+    wrapper = shallow(<ListContainer />);
   });
   it('renders self successfully', () => {
     expect(wrapper).to.have.length(1);
   });
-})
+});

@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from '../../src/components/App';
+import OpenClose from '../../src/components/OpenClose';
 
-describe('(Component) App', () => {
+describe('(Component) OpenClose', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<App />);
+    wrapper = shallow(<OpenClose />);
   });
   it('renders self successfully', () => {
     expect(wrapper).to.have.length(1);
   });
-})
+});

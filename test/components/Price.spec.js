@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from '../../src/components/App';
+import Price from '../../src/components/Price';
 
-describe('(Component) App', () => {
+describe('(Component) Price', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<App />);
+    wrapper = shallow(<Price />);
   });
   it('renders self successfully', () => {
     expect(wrapper).to.have.length(1);
   });
-})
+});

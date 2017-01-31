@@ -7,12 +7,8 @@ describe('(Container) Root', () => {
   beforeEach(() => {
     wrapper = shallow(<Root />);
   });
-  
-  it('renders as a function', () => {
-    expect(wrapper.type()).to.eql('function');
-  });
 
-  it('renders without exploding', () => {
+  it('renders self successfully', () => {
     expect(wrapper).to.have.length(1);
   });
 })
