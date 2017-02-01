@@ -6,9 +6,10 @@
   "scripts": {
     "test": "mocha --require ignore-styles --compilers js:babel-register --require ./test/test_helper.js --recursive",
     "test:watch": "npm test -- --watch",
-    "build": "webpack --config --display-error-details ./webpack.prod.config.js",
+    "build": "webpack --config ./webpack.prod.config.js",
     "start": "node server.js",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "clean": "rm -r dist/bundle.*"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "autoprefixer": "^6.6.1",
     "babel-register": "^6.22.0",
     "chai": "^3.5.0",
+    "clean-webpack-plugin": "^0.1.15",
     "enzyme": "^1.2.0",
     "eslint": "^3.8.0",
     "eslint-config-airbnb": "^12.0.0",
