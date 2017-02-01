@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --require ignore-styles --compilers js:babel-register --require ./test/test_helper.js --recursive",
     "test:watch": "npm test -- --watch",
-    "build": "webpack --config ./webpack.prod.config.js",
+    "build": "webpack --config --display-error-details ./webpack.prod.config.js",
     "start": "node server.js",
     "postinstall": "npm run build"
   },
@@ -38,7 +38,8 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.14.0"
+    "webpack-dev-server": "^1.14.0",
+    "webpack-uglify-js-plugin": "^1.1.9"
   },
   "devDependencies": {
     "autoprefixer": "^6.6.1",
