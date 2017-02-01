@@ -87,10 +87,8 @@ class SearchBox extends Component {
           className="form-control"
           onKeyDown={this.onFormSubmit}
         />
-        <img
-          alt="enable location icon"
-          src="../../assets/enable_location.png"
-          className="enable-location-img"
+        <i
+          className="fa fa-location-arrow fa-lg enable-location-img"
           onClick={this.locateUser}
         />
       </div>
