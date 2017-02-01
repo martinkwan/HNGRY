@@ -6,9 +6,8 @@
   "scripts": {
     "test": "mocha --require ignore-styles --compilers js:babel-register --require ./test/test_helper.js --recursive",
     "test:watch": "npm test -- --watch",
-    "build": "webpack --watch",
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+    "build": "rm -Rf dist/* && webpack --watch",
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress"
   },
   "repository": {
     "type": "git",
