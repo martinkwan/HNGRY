@@ -8,7 +8,7 @@
     "test:watch": "npm test -- --watch",
     "build": "webpack --config ./webpack.prod.config.js",
     "start": "node server.js",
-    "heroku-postbuild": "npm run build"
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
