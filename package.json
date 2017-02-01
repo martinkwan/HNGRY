@@ -7,7 +7,8 @@
     "test": "mocha --require ignore-styles --compilers js:babel-register --require ./test/test_helper.js --recursive",
     "test:watch": "npm test -- --watch",
     "build": "webpack --config ./webpack.prod.config.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
