@@ -12,11 +12,11 @@ $desktop-width: 1024px;
 $box-shadow: 0 5px 10px rgba(0,0,0,0.49);
 
 
-$list-header-height:5vh;
+$list-header-height:50px;
 $max-map-height: 90vh;
 
 $mobile-max-map-height: 40vh;
 $mobile-max-list-height: (82vh - $mobile-max-map-height);
 
 
-$max-list-height: ($max-map-height - $list-header-height);
+$max-list-height: ($max-map-height - 5vh);
