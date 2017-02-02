@@ -3,20 +3,15 @@
  | This is a container that displays the google map.
  | It needs to both dispatch and access to redux state.
  |
- | A. When redux's location state is updated via search or geolocation:
- |  1. This map rerenders with the new location.
- |  2. Searches for restaurants in new map bounds.
+ | A. When redux's location state is updated via search or geolocation,
+ |    or if redux's filter state is updated via dropdown container:
+ |  1. This map rerenders if new location.
+ |  2. Searches for restaurants in new map bounds and sorts according to current filter.
  |  3. The updatePlaces action is dispatched to the reducers with the search results.
  |  4. Redux's place state is updated.
  |  4. Invokes the list container to update.
  |
- | B. When redux's filter state is updated via dropdown container:
- |  1. This map rerenders with the markers with the numbers in the sorted order.
- |  2. The updatePlaces action is dispatched to the reducers with places in sorted order.
- |  3. Redux's place state is updated.
- |  4. Invokes the list container to update
- |
- | C. When map is panned, updateLocation action is dispatched to reducers:
+ | B. When map is panned, updateLocation action is dispatched to reducers:
  |  1. The updateLocation action is dispatched to the reducers with new location.
  |  2. Redux's location state is updated.
  |  3. Invokes this map container to update with new coordinates.
@@ -25,7 +20,7 @@
  |  6. Redux's place state is updated.
  |  7. Invokes the list container to update.
  |
- | D. When map is zoomed, the map searches for restaurants in the new view area:
+ | C. When map is zoomed, the map searches for restaurants in the new view area:
  |  1. Searches map for restaurants and drops markers.
  |  2. The updatePlaces action is dispatched to the reducers with the search results.
  |  3. Redux's place state is updated.
@@ -44,7 +39,6 @@ class Map extends Component {
     super(props);
     this.state = {
       markers: [],
-      filterState: 'None',
       places: [],
     };
   }
@@ -65,7 +59,7 @@ class Map extends Component {
   }
 
   /**
-   * If redux state is updated via search bar, pan the map to the new location
+   * If redux state is updated, pan the map to the new location
    * And start searching the new location for restaurants
    */
   componentDidUpdate() {
@@ -80,16 +74,8 @@ class Map extends Component {
         this.map.setZoom(14);
         google.maps.event.addListener(this.map, 'zoom_changed', () => this.search());
       }
-      // If component update is via filter change, set up markers w/o updating redux state
-      if (this.state.filterState !== this.props.filter) {
-        this.sortPlaces();
-        this.setUpMarkers(this.state.places);
-        this.state.filterState = this.props.filter;
-        // If component update is via panning map or zooming,
-        // update redux state w/ new search results
-      } else {
-        this.search();
-      }
+      // update redux state w/ new search results
+      this.search();
     } else {
       document.getElementById('autocomplete').placeholder = 'Enter a location';
     }
@@ -102,7 +88,7 @@ class Map extends Component {
     this.clearMarkers(this.state.markers);
     // Create a marker for each restaurant found.
     for (let i = 0; i < results.length; i++) {
-      const markerIcon = `http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=${(i + 1)}|26d6d6|ffffff`;
+      const markerIcon = `https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=${(i + 1)}|26d6d6|ffffff`;
       // Use marker animation to drop the icons incrementally on the map.
       this.state.markers[i] = new google.maps.Marker({
         position: results[i].geometry.location,
@@ -113,7 +99,7 @@ class Map extends Component {
       this.state.markers[i].placeResult = results[i];
       google.maps.event.addListener(this.state.markers[i], 'mouseover', this.showInfoWindow.bind(this, this.state.markers[i]));
       google.maps.event.addListener(this.state.markers[i], 'mouseout', this.closeInfoWindow.bind(this, this.state.markers[i]));
-      setTimeout(this.dropMarker(i, this.state.markers), i * 100);
+      setTimeout(this.dropMarker(i, this.state.markers), i * 150);
     }
   }
   /**
@@ -137,10 +123,10 @@ class Map extends Component {
     this.places.nearbySearch(search, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.state.places = results;
-        // sort places according to current filter before update redux state
+        // sort places according to current filter before updating redux state
         this.sortPlaces();
         this.props.updatePlaces(this.state.places);
-        this.setUpMarkers(results);
+        this.setUpMarkers(this.state.places);
       }
     });
   }

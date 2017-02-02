@@ -4,22 +4,21 @@ const webpack = require('webpack');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/dev-server',
     'react-hot-loader/patch',
+    'webpack-hot-middleware/client',
     path.join(__dirname, 'src/index.js'),
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
     publicPath: '/',
-    filename: '[name].js',
+    filename: 'bundle.js',
   },
   module: {
     loaders: [
       {
         test: /.*\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loaders: ['babel'],
         include: path.join(__dirname, 'src'),
       },
       {
@@ -36,8 +35,7 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
-    contentBase: './',
+    contentBase: './dist',
     hot: true,
-    port: 3000,
   },
 };

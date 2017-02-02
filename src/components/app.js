@@ -8,8 +8,7 @@ import React, { Component } from 'react';
 import NavBar from './navBar';
 import Map from '../containers/map';
 import ListContainer from './listContainer';
-
-require('../../styles/style.scss');
+import '../../styles/style.scss';
 
 export default class App extends Component {
   render() {

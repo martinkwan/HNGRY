@@ -11,7 +11,8 @@ render(
   <AppContainer>
     <Root store={store} />
   </AppContainer>,
-  document.querySelector('#start'));
+  document.querySelector('#start')
+);
 
 if (module.hot) {
   module.hot.accept('./containers/root', () => {
