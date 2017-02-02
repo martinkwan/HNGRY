@@ -1,5 +1,7 @@
 # HNGRY
-Web application to plot nearby restaurants on a map.
+[![Build Status](https://travis-ci.org/martinkwan/HNGRY.svg?branch=master)](https://travis-ci.org/martinkwan/HNGRY)
+
+HNGRY is a web application to find and plot nearby restaurants on a map.
 
 ![Alt text](screenShot.png "HNGRY")
 
