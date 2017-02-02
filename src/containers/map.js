@@ -32,7 +32,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateLocation, updatePlaces } from '../actions/index';
-import InfoWindow from '../components/InfoWindow';
+import InfoWindow from '../components/infoWindow';
 
 class Map extends Component {
   constructor(props) {
