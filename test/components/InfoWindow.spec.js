@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import InfoWindow from '../../src/components/InfoWindow';
+import InfoWindow from '../../src/components/infoWindow';
 
 describe('(Component) InfoWindow', () => {
   let wrapper;
