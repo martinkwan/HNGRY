@@ -8,6 +8,7 @@
     "test:watch": "npm test -- --watch",
     "build": "webpack --config ./webpack.prod.config.js",
     "start": "node server.js",
+    "postinstall": "npm run clean && NODE_ENV=production webpack ./webpack.prod.config.js -p",
     "clean": "rm -r dist/bundle.*"
   },
   "repository": {
