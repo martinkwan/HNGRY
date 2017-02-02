@@ -2,4 +2,5 @@ npm-debug.log
 node_modules
 API_KEY.js
 vendor
-/dist/bundle.js*
+dist/bundle.js
+dist/bundle.js.map
