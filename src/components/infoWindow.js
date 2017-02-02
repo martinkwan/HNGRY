@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import Price from './Price';
-import OpenClose from './OpenClose';
+import Price from './price';
+import OpenClose from './openClose';
 
 const InfoWindow = () =>
   <table className="info-window">

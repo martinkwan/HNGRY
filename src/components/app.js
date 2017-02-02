@@ -5,9 +5,9 @@
  */
 
 import React, { Component } from 'react';
-import NavBar from './NavBar';
-import Map from '../containers/Map';
-import ListContainer from './ListContainer';
+import NavBar from './navBar';
+import Map from '../containers/map';
+import ListContainer from './listContainer';
 
 require('../../styles/style.scss');
 

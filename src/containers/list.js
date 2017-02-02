@@ -11,7 +11,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import ListItem from '../components/ListItem';
+import ListItem from '../components/listItem';
 
 class List extends Component {
   /**
