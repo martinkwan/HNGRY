@@ -87,8 +87,10 @@ class SearchBox extends Component {
           className="form-control"
           onKeyDown={this.onFormSubmit}
         />
-        <i
-          className="fa fa-location-arrow fa-lg enable-location-img"
+        <img
+          alt="enable location icon"
+          src="https://cdn3.iconfinder.com/data/icons/glypho-travel/64/gps-position-target-512.png"
+          className="enable-location-img"
           onClick={this.locateUser}
         />
       </div>
