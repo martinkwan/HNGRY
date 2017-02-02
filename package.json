@@ -2,13 +2,13 @@
   "name": "HNGRY",
   "version": "1.0.0",
   "description": "Web application to plot nearby restaurants on a map.",
-  "main": "index.js",
   "scripts": {
     "test": "mocha --require ignore-styles --compilers js:babel-register --require ./test/test_helper.js --recursive",
     "test:watch": "npm test -- --watch",
     "build": "webpack --config ./webpack.prod.config.js",
     "start": "node server.js",
-    "postinstall": "npm run clean && webpack --config ./webpack.prod.config.js",
+    "heroku-prebuild": "npm run clean",
+    "heroku-postbuild": "npm run build",
     "clean": "rm -r dist/bundle.*"
   },
   "repository": {
