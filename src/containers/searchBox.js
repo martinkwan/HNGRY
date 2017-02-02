@@ -89,7 +89,7 @@ class SearchBox extends Component {
         />
         <img
           alt="enable location icon"
-          src="../../assets/enable_location.png"
+          src="https://cdn3.iconfinder.com/data/icons/glypho-travel/64/gps-position-target-512.png"
           className="enable-location-img"
           onClick={this.locateUser}
         />

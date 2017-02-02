@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import SearchBox from '../containers/SearchBox';
+import SearchBox from '../containers/searchBox';
 
 const NavBar = () =>
   <nav className="navbar navbar-default">

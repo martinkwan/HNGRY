@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ListItem from '../../src/components/ListItem';
+import ListItem from '../../src/components/listItem';
 
 describe('(Component) ListItem', () => {
   let wrapper;

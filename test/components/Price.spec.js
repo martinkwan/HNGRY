@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Price from '../../src/components/Price';
+import Price from '../../src/components/price';
 
 describe('(Component) Price', () => {
   let wrapper;

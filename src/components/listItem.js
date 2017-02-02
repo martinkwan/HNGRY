@@ -5,9 +5,9 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import Rating from './Rating';
-import Price from './Price';
-import OpenClose from './OpenClose';
+import Rating from './rating';
+import Price from './price';
+import OpenClose from './openClose';
 
 export default class ListItem extends Component {
   render() {
