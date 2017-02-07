@@ -88,7 +88,7 @@ class Map extends Component {
     this.clearMarkers(this.state.markers);
     // Create a marker for each restaurant found.
     for (let i = 0; i < results.length; i++) {
-      const markerIcon = `https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=${(i + 1)}|26d6d6|ffffff`;
+      const markerIcon = `https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=${(i + 1)}|800000|ffffff`;
       // Use marker animation to drop the icons incrementally on the map.
       this.state.markers[i] = new google.maps.Marker({
         position: results[i].geometry.location,
