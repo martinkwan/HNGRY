@@ -26,7 +26,7 @@ class List extends Component {
       <div id="list-scroll" className="list-scroll">
         {this.props.places.map((place, index) =>
           (
-            <div key={place.id} className="list-item-container">
+            <div key={place.place_id} className="list-item-container">
               <h4 className="list-item-number">{index + 1}</h4>
               <ListItem
                 place={place}
