@@ -160,7 +160,7 @@ class Map extends Component {
   buildInfoWindow(place) {
     document.getElementById('info-window-name').textContent = place.name;
     document.getElementById('info-window-address').textContent = place.vicinity;
-    const openText = place.opening_hours ? (place.opening_hours.open_now ? 'Open Now' : 'Currently Closed') : 'Hours N/A';
+    const openText = place.opening_hours ? (place.opening_hours.isOpen() ? 'Open Now' : 'Currently Closed') : 'Hours N/A';
     document.getElementById('open-close').textContent = openText;
     // Reset price-fill-in class on price rating before setting again
     for (let i = 1; i < 5; i++) {

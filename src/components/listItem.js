@@ -30,7 +30,7 @@ export default class ListItem extends Component {
             <tr>
               <td>
                 <Price rating={place.price_level} />
-                &nbsp; <OpenClose open={place.opening_hours ? place.opening_hours.open_now : 'maybe'} />
+                &nbsp; <OpenClose open={place.opening_hours ? place.opening_hours.isOpen() : 'maybe'} />
               </td>
             </tr>
             <tr>
