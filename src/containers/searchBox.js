@@ -4,12 +4,11 @@
  | Does not need to access redux state.
  | Needs to dispatch to redux state.
  |
- // TODO: 1. Update to react-hooks documentation
-
- // TODO: 2. [Violation] Added non-passive event listener to a scroll-blocking <some> event.
+ 
+ // TODO: 1. [Violation] Added non-passive event listener to a scroll-blocking <some> event.
  // TODO: Consider marking event handler as 'passive' to make the page more responsive. See <URL>
  | A. When city or address is selected from autocomplete:
- |  1. The updateLocation action is dispatched to the reducers with the location object.
+ |  1. The updateLocation action is dispatched to the reducers with the location object. (via autocomplete event listener)
  |  2. Redux's location state is updated.
  |  3. Invokes map container to update with new coordinates.
  |
@@ -54,7 +53,6 @@ export const SearchBox = () => {
    * Use browser geolocation to locate user, then pan to user location
    */
   const locateUser = () => {
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         // Format locationData in proper format to be read by google map
