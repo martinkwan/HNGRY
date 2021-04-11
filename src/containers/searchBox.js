@@ -4,6 +4,10 @@
  | Does not need to access redux state.
  | Needs to dispatch to redux state.
  |
+ // TODO: 1. Update to react-hooks documentation
+
+ // TODO: 2. [Violation] Added non-passive event listener to a scroll-blocking <some> event.
+ // TODO: Consider marking event handler as 'passive' to make the page more responsive. See <URL>
  | A. When city or address is selected from autocomplete:
  |  1. The updateLocation action is dispatched to the reducers with the location object.
  |  2. Redux's location state is updated.
@@ -17,31 +21,20 @@
  |------------------------------------------------------------------------------------------
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from "react-redux";
+
 import { updateLocation } from '../actions/index';
 
-class SearchBox extends Component {
-  constructor(props) {
-    super(props);
-    this.locateUser = this.locateUser.bind(this);
-  }
-  /**
-   * Initialize autocomplete object after component renders because google needs access to DOM
-   */
-  componentDidMount() {
-    this.initAutocomplete();
-    this.locateUser();
-  }
+export const SearchBox = () => {
+  const dispatch = useDispatch();
 
   /**
   * Prevent submitting page when the user presses enter in the searchbar
   * User should only search via autocomplete selection
   * @param  {Object} event
   */
-  onFormSubmit(event) {
+  const onFormSubmit = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
     }
@@ -50,17 +43,18 @@ class SearchBox extends Component {
   /**
    * Create autocomplete object to search geographical location types only
    */
-  initAutocomplete() {
+  const initAutocomplete = () => {
     const autocomplete = new google.maps.places.Autocomplete(
         /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
         { types: ['geocode'] });
-    autocomplete.addListener('place_changed', () => this.props.updateLocation(autocomplete.getPlace()));
+    autocomplete.addListener('place_changed', () => dispatch(updateLocation(autocomplete.getPlace())));
   }
 
   /**
    * Use browser geolocation to locate user, then pan to user location
    */
-  locateUser() {
+  const locateUser = () => {
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         // Format locationData in proper format to be read by google map
@@ -72,39 +66,34 @@ class SearchBox extends Component {
             ),
           },
         };
-        this.props.updateLocation(locationData);
+        dispatch(updateLocation(locationData));
       });
     } else {
       console.log('This Browser doesnt support HTML5 geolocation');
     }
   }
 
-  render() {
+  useEffect(() => {
+    // run this after render
+    initAutocomplete();
+    locateUser();
+  }, [])
+
+
     return (
       <div className="form-group">
         <input
           id="autocomplete"
           type="text"
           className="form-control"
-          onKeyDown={this.onFormSubmit}
+          onKeyDown={onFormSubmit}
         />
         <img
           alt="enable location icon"
           src="https://cdn3.iconfinder.com/data/icons/glypho-travel/64/gps-position-target-512.png"
           className="enable-location-img"
-          onClick={this.locateUser}
+          onClick={locateUser}
         />
       </div>
     );
-  }
 }
-
-SearchBox.propTypes = {
-  updateLocation: PropTypes.func,
-};
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateLocation }, dispatch);
-}
-
-export default connect(null, mapDispatchToProps)(SearchBox);
