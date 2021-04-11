@@ -4,7 +4,8 @@
  |------------------------------------------------------------------------------------------
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Rating from './rating';
 import Price from './price';
 import OpenClose from './openClose';
